@@ -11,7 +11,7 @@ function ProtectedRouter({ mode }: { mode?: "test" }) {
     if (mode !== "test" && !isLogin) return navigate("/login");
   }, []);
 
-  return isLogin && <Outlet />;
+  return mode === "test" ? <Outlet /> : isLogin && <Outlet />;
 }
 
 export default ProtectedRouter;

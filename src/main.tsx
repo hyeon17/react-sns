@@ -6,6 +6,8 @@ import { MSWStatus } from "@/constants";
 import GlobalStyle from "@/styles/createGlobalStyle";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ReactQueryDevTool from "@/components/ReactQueryDevTool";
+import { ThemeProvider } from "styled-components";
+import { theme } from "./styles/theme";
 
 if (import.meta.env.VITE_MOCKING_ENABLE === MSWStatus.ACTIVE) {
   worker.start({ onUnhandledRequest: "bypass" });
@@ -20,9 +22,11 @@ const queryClient = new QueryClient(
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <GlobalStyle />
-      <App />
-      <ReactQueryDevTool />
+      <ThemeProvider theme={theme}>
+        <GlobalStyle />
+        <App />
+      </ThemeProvider>
+      {/* <ReactQueryDevTool /> */}
     </QueryClientProvider>
   </React.StrictMode>
 );

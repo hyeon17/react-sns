@@ -1,7 +1,7 @@
 import { modalType } from '@/types/modal';
 import * as S from './style';
 
-function Modal({ content }: modalType) {
+function BasicModal({ content }: modalType) {
 
   return (
     <S.ModalWrapper>
@@ -10,4 +10,4 @@ function Modal({ content }: modalType) {
   );
 }
 
-export default Modal;
+export default BasicModal;

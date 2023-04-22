@@ -1,5 +1,3 @@
 export interface modalType {
-  isLogin: boolean;
-  isPost?: boolean;
-  content?: React.ReactNode;
+  content: React.ReactNode;
 }

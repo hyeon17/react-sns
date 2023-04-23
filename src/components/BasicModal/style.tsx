@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { IoMdClose } from 'react-icons/io';
 
 export const ModalWrapper = styled.div`
   position: fixed;
@@ -19,7 +20,7 @@ export const Content = styled.div`
 `;
 
 
-export const CloseButton = styled.button`
+export const CloseButton = styled(IoMdClose)`
   position: absolute;
   top: 10px;
   right: 10px;

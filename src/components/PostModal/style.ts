@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import { IoMdClose } from 'react-icons/io';
-import { FaPhotoVideo } from 'react-icons/fa';
+import { BiArrowBack } from 'react-icons/bi';
 import { theme } from '../../styles/theme';
 
-export const ModalWrapper = styled.div`
+export const ModalWrapper = styled.form`
   position: fixed;
   top: 0;
   left: 0;
@@ -18,17 +17,16 @@ export const ModalWrapper = styled.div`
 
 export const Content = styled.div`
   background-color: ${theme.colors.white};
-  padding: 20px;
+  padding-top: 20px;
   height: 700px;
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
 `;
 
-export const CloseButton = styled(IoMdClose)`
-  position: absolute;
-  top: 10px;
-  right: 10px;
+export const CloseButton = styled(BiArrowBack)`
   font-size: 20px;
+  padding-left: 20px;
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -37,26 +35,29 @@ export const CloseButton = styled(IoMdClose)`
 export const Title = styled.div`
   font-size: 20px;
   font-weight: bold;
-  margin-bottom: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  margin-bottom: 20px;
 `;
 
 export const Header = styled.div`
   display: flex;
   justify-content: center;
-  height: 50px;
-  width: 650px;
+  height: 30px;
+  width: 1000px;
+  border-bottom: 1px solid ${theme.colors.dimGray};
 `;
 
 export const PostButton = styled.button`
-  color: ${theme.colors.darkSky};
+  color: ${theme.colors.instaSky};
   border: transparent;
   background-color: transparent;
+  display: flex;
+  align-items: start;
+  cursor: pointer;
+  margin-top: -5px;
+  font-weight: bold;
+  padding-right: 20px;
 `;
-
-
-
-

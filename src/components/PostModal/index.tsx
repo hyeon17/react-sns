@@ -2,12 +2,68 @@ import { modalType } from '@/types/modal';
 import { useStore } from '../../store/store';
 import * as S from './style';
 import { Helmet } from 'react-helmet-async';
+import React, { useState } from 'react';
 
 function PostModal({ content }: modalType) {
-  const { closeModal } = useStore();
+  const { openModal, closeModal, isModalOpen } = useStore();
+  const [text, setText] = useState<string>('');
+  const [backspacePressed, setBackspacePressed] = useState<boolean>(false); // backspace 버튼 눌린 여부 저장
+  const MAX_LENGTH: number = 1000;
+
+  // 글자 수 입력 제한
+  const textChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const inputValue: string = event.target.value;
+    if (inputValue.length <= MAX_LENGTH) {
+      setText(inputValue);
+    }
+  };
+
+  // 글자 붙여넣기 시 입력 제한
+  const pasteHandle = (event: React.ClipboardEvent<HTMLTextAreaElement>) => {
+    const paste: string = event.clipboardData.getData('text');
+    const maxLength: number = MAX_LENGTH - text.length; // 현재 입력된 글자를 제외한 최대 글자수 계산
+    if (paste.length > maxLength) {
+      // 붙여넣기된 글자수가 최대 글자수를 초과하면 붙여넣기된 글자를 최대 글자수까지 자르기
+      const truncatedPaste: string = paste.substring(0, maxLength);
+      // 자른 글자를 입력란에 입력하기
+      navigator.clipboard
+        .writeText(truncatedPaste)
+        .then(() => {
+          return navigator.clipboard.readText();
+        })
+        .catch((err) => {
+          console.error('Failed to copy text: ', err);
+        });
+      // 이벤트 전파 중단
+      event.preventDefault();
+    }
+  };
+
+  // 백스페이스 버튼 눌린 경우 글자 수 제한
+  const backSpace = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === 'Backspace') {
+      setBackspacePressed(true); // backspace 버튼 눌렸음을 저장
+    }
+
+    if (!backspacePressed && text.length >= MAX_LENGTH) {
+      event.preventDefault();
+    } else {
+      setBackspacePressed(false); // backspace 버튼 눌린 여부 초기화
+    }
+  };
+
+  // 글자 수 세기
+  const CountTexts = (text: string) => {
+    return text.length;
+  };
+  const count: number = CountTexts(text);
+
+  const PostButton = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    event.preventDefault();
+  };
 
   return (
-    <S.ModalWrapper>
+    <S.ModalWrapper openModal={openModal} closeModal={closeModal} isModalOpen={isModalOpen}>
       <Helmet>
         <title>새 게시물 만들기 · Photogram </title>
       </Helmet>
@@ -15,9 +71,23 @@ function PostModal({ content }: modalType) {
         <S.Header>
           <S.CloseButton onClick={closeModal} />
           <S.Title>새 게시물 만들기</S.Title>
-          <S.PostButton>공유하기</S.PostButton>
+          <S.PostButton onClick={PostButton}>공유하기</S.PostButton>
         </S.Header>
-        {content}
+        <S.PostPageWrapper>
+          {content}
+          <S.Post>
+            <S.PostContent
+              placeholder='게시물에 대해 설명해보세요...'
+              onChange={textChange}
+              onKeyDown={backSpace}
+              onPaste={pasteHandle}
+              value={text}
+            ></S.PostContent>
+            <S.WordNumber>
+              {count}/{MAX_LENGTH}
+            </S.WordNumber>
+          </S.Post>
+        </S.PostPageWrapper>
       </S.Content>
     </S.ModalWrapper>
   );

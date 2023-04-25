@@ -1,18 +1,19 @@
 import styled from 'styled-components';
 import { BiArrowBack } from 'react-icons/bi';
 import { theme } from '../../styles/theme';
+import { ModalState } from '@/store/store';
 
-export const ModalWrapper = styled.form`
+export const ModalWrapper = styled.form<ModalState>`
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: ${theme.colors.dimGray};
-  display: flex;
   justify-content: center;
   align-items: center;
-  overflow: auto;
+  overflow: ${(props) => (props.isModalOpen ? 'hidden' : 'auto')};
+  display: ${(props) => (props.isModalOpen ? 'flex' : 'none')};
 `;
 
 export const Content = styled.div`
@@ -60,4 +61,40 @@ export const PostButton = styled.button`
   margin-top: -5px;
   font-weight: bold;
   padding-right: 20px;
+  &:hover {
+    color: ${theme.colors.black};
+  }
+`;
+
+export const Post = styled.div`
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-left: 1px solid ${theme.colors.dimGray};
+  height: 100%;
+`;
+
+export const PostContent = styled.textarea`
+  padding: 20px 0 0 10px;
+  margin-bottom: 10px;
+  width: 90%;
+  height: 90%;
+  word-wrap: break-word;
+  border: none;
+  outline: none;
+  resize: none;
+`;
+
+export const WordNumber = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+`;
+
+export const PostPageWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  height: 100%;
 `;

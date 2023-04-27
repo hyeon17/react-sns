@@ -5,9 +5,8 @@ import homeIcon from '@/assets/Home.png'
 import addPostingIcon from '@/assets/AddPosting.png'
 import { removeCookie } from '@/util';
 import { SignUpButton } from './Styled'
-
 import * as S from './Styled'
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getCookie } from '@/util';
 import { ACCESSTOKEN_KEY } from '@/constants';
 import { instance } from '@/api/axios';
@@ -21,6 +20,7 @@ const verify = async () => {
 
 function Header() {
   const accessToken = getCookie(ACCESSTOKEN_KEY);
+  const queryClient = useQueryClient()
   
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -29,7 +29,7 @@ function Header() {
   })
   const handleLogout = () => {
     removeCookie(ACCESSTOKEN_KEY);
-    window.location.reload();
+    queryClient.invalidateQueries(['auth', 'verify']);
   }
 
   return (
@@ -57,7 +57,7 @@ function Header() {
         {verifyPayload && status !== 'error' ? ( // 로그인 상태인 경우에만 보이는 버튼들
           
             <S.HeaderRight>
-              <S.LoginMediumButton onClick={handleLogout} to="/posting">로그아웃</S.LoginMediumButton>
+              <S.LoginMediumButton onClick={handleLogout} to="/">로그아웃</S.LoginMediumButton>
             </S.HeaderRight>
           
         ) : (

@@ -6,11 +6,18 @@ export const gridDiv = styled.div`
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: repeat(2, 1fr);
   align-items: center;
-  img {
+  .imgWrapper{
     grid-column: 1/2;
     grid-row: 1/4;
-    border-radius: 50%;
     justify-self: center;
+    width: 150px;
+    height: 150px;
+    img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
   }
   width: 1000px;
   margin: 0 auto;
@@ -36,9 +43,14 @@ export const flexWrapDiv = styled.div`
   gap: 0.5rem;
   width: 920px;
   margin: 0 auto;
-  img {
+  .imgWrapper{
     width: 300px;
     height: 300px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
   .postlink {
     position: relative;

@@ -6,9 +6,9 @@ import { ReactComponent as CommentLogo } from "@/assets/commentLogo.svg"
 type Props ={
   src: string
   like: number
-  comment: number
+  onClick: () => void
 }
-function Post({src, like, comment}: Props) {
+function Post({src, like, onClick}: Props) {
   const [isHovering, setIsHovering] = useState(false)
 
   const MouseOverHandler = () => {
@@ -19,19 +19,21 @@ function Post({src, like, comment}: Props) {
     setIsHovering(false)
   }
   return(
-    <div className='postlink' onMouseOver={MouseOverHandler} onMouseOut={MouseOutHandler}>
+    <div className='postlink' onMouseOver={MouseOverHandler} onMouseOut={MouseOutHandler} onClick={onClick}>
       {isHovering? 
         <S.hoverDiv>
           <S.flexCenterHoverDiv>
             <LikeLogo />
             <span>{like}</span>
           </S.flexCenterHoverDiv>
-          <S.flexCenterHoverDiv>
+          {/* <S.flexCenterHoverDiv>
             <CommentLogo />
             <span>{comment}</span>
-          </S.flexCenterHoverDiv>
+          </S.flexCenterHoverDiv> */}
         </S.hoverDiv>:null}
-      <img src={src} />
+      <div className="imgWrapper">
+        <img src={src} />
+      </div>
     </div>
   )
 }

@@ -14,7 +14,6 @@ if (import.meta.env.VITE_MOCKING_ENABLE === MSWStatus.ACTIVE) {
   worker.start({ onUnhandledRequest: "bypass" });
 }
 
-
 const queryClient = new QueryClient(
   import.meta.env.MODE === "development"
     ? { defaultOptions: { queries: { networkMode: "always" } } }

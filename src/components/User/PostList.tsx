@@ -33,7 +33,7 @@ function PostList({userPost}: {userPost: posts[] | undefined}) {
             setPostId(post.id)
           }} />
         ))}
-        {getIsModalOpen() && postId ? <BasicModal content={<PostView id={postId} /> } /> : null}
+        {getIsModalOpen() && postId ? <BasicModal contents={<PostView id={postId} /> } /> : null}
       </S.flexWrapDiv>
     </>
   )

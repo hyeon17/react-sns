@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import ReactQueryDevTool from "@/components/ReactQueryDevTool";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./styles/theme";
+import { HelmetProvider } from "react-helmet-async";
 
 // if (import.meta.env.VITE_MOCKING_ENABLE === MSWStatus.ACTIVE) {
 //   worker.start({ onUnhandledRequest: "bypass" });
@@ -25,7 +26,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <App />
+        <HelmetProvider>
+          <App />
+        </HelmetProvider>
       </ThemeProvider>
       {/* <ReactQueryDevTool /> */}
     </QueryClientProvider>

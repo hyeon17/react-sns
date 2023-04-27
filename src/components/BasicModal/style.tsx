@@ -18,6 +18,7 @@ export const ModalWrapper = styled.div<Pick<ModalState, 'isModalOpen'>>`
 export const Content = styled.div`
   background-color: white;
   padding: 20px;
+  border-radius: 10px;
 `;
 
 

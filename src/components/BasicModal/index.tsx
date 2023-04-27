@@ -9,8 +9,8 @@ function BasicModal({ contents }: modalType) {
   const { openModal, closeModal, getIsModalOpen } = useStore();
 
   return (
-    <S.ModalWrapper>
-      <S.Content>{content}</S.Content>
+    <S.ModalWrapper isModalOpen={getIsModalOpen()}>
+      <S.Content>{contents}</S.Content>
       <S.CloseButton onClick={closeModal} />
     </S.ModalWrapper>
   );

@@ -11,10 +11,8 @@ function Router() {
   
   return (
     <BrowserRouter>
-    <Header/>
       <Routes>
-        
-        <Route element={<ProtectedRouter mode="test" />}>
+        <Route element={<ProtectedRouter />}>
           <Route  path="/" element={<Home />} />
         </Route>
         <Route path="/posts/:user" element={<User />} />

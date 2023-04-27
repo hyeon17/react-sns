@@ -39,24 +39,28 @@ export const authHandler = [
   rest.post("/auth/login", async (req, res, ctx) => {
     const { email, password } = await req.json<LoginRequest>();
 
-    const now = Date.now();
+    if(email === "test@text12.com" && password === 'Aa123456') {
+      const now = Date.now();
 
-    const user = mockUserList[0];
-
-    return res(
-      ctx.status(200),
-      ctx.json<LoginResponse>({
-        ok: true,
-        payload: {
-          content: {
-            ...user,
-            iat: now,
-            exp: getJwtExpireTimeStamp(now, 3600),
+      const user = mockUserList[0];
+  
+      return res(
+        ctx.status(200),
+        ctx.json<LoginResponse>({
+          ok: true,
+          payload: {
+            content: {
+              ...user,
+              iat: now,
+              exp: getJwtExpireTimeStamp(now, 3600),
+            },
+            accessToken: TEST_ACCESSTOKEN,
           },
-          accessToken: TEST_ACCESSTOKEN,
-        },
-      })
-    );
+        })
+      );
+    }
+
+    return res(ctx.status(404), ctx.json({ok: false, error: {message: '존재하지 않는 사용자 입니다.'}}))
   }),
   rest.post("/auth/signup", async (req, res, ctx) => {
     const { email, password, username, profile } =

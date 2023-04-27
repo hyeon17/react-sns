@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { IoMdClose } from 'react-icons/io';
 import { ModalState } from '@/store/store';
 
-export const ModalWrapper = styled.div<ModalState>`
+export const ModalWrapper = styled.div<Pick<ModalState, 'isModalOpen'>>`
   position: fixed;
   top: 0;
   left: 0;

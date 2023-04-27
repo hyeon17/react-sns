@@ -1,5 +1,3 @@
-import UserInfo from "@/components/User/UserInfo";
-import PostList from "@/components/User/PostList";
 
 interface ComponentTestProps {
   element?: React.ReactNode;
@@ -7,9 +5,8 @@ interface ComponentTestProps {
 
 function ComponentTest({ element }: ComponentTestProps) {
   return (
-    <>{element ?? null}
-      <UserInfo />
-      <PostList />
+    <>
+      {element ?? null}
     </>
   );
 }

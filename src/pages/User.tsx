@@ -46,7 +46,7 @@ function User() {
     setPostLength(response.data.payload.posts.length)
     setUserPost(response.data.payload.posts)
   }
-
+  
   useEffect(() => {
     console.log(params)
     getPosts(userName)

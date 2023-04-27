@@ -6,6 +6,7 @@ import { ReactComponent as PostLogo } from "@/assets/postLogo.svg"
 import { Link } from 'react-router-dom'
 import BasicModal from '../BasicModal';
 import { useStore } from '@/store/store';
+import PostView from '../PostView/PostView';
 
 type posts = {
   id: number
@@ -32,7 +33,7 @@ function PostList({userPost}: {userPost: posts[] | undefined}) {
             setPostId(post.id)
           }} />
         ))}
-        {getIsModalOpen() && postId ? <BasicModal content={<div>test modal {postId}</div>}/> : null}
+        {getIsModalOpen() && postId ? <BasicModal contents={<PostView id={postId} /> } /> : null}
       </S.flexWrapDiv>
     </>
   )

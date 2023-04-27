@@ -8,6 +8,7 @@ type Props ={
   like: number
   onClick: () => void
 }
+
 function Post({src, like, onClick}: Props) {
   const [isHovering, setIsHovering] = useState(false)
 

@@ -21,9 +21,14 @@ function SignupForm({ mutate }:SignFormProps) {
     //     reset();
     //     setType("login");
     //   }
-
+    
+    
     const onValid = (data: SignupRequest) => {
-        mutate(data)
+      const formData = new FormData();
+    formData.append('email', data.email)
+    formData.append('username', data.username)
+    formData.append('password', data.password)
+        mutate({ email: formData.get('email'), username: formData.get('username'), password: formData.get('password') })
         console.log(data)
     }
     

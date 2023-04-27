@@ -26,11 +26,11 @@ import { LoginResponse } from "@/types/response";
 
 
 function Login() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { mutate, isLoading, error } = useMutation(login, {
     onSuccess: (data: LoginResponse) => {
       console.log(data)
-      navigate('/')
+      // navigate('/posts/testUser1')
       if(!data) return;
       setCookie('accessToken', data.payload!.accessToken, { path: '/', maxAge: data.payload!.content?.exp - data.payload!.content?.iat })    
     },

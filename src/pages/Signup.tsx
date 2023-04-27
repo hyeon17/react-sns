@@ -7,9 +7,10 @@ import { useMutation } from "@tanstack/react-query";
 import { signup } from "@/api/auth";
 import { setCookie } from "@/util";
 import { AxiosError } from "axios";
+import { SignupRequest } from "@/types/request";
 
 function Signup() {
-  const { mutate } = useMutation(signup, {
+  const { mutate } = useMutation((user:SignupRequest) => signup(user), {
     onSuccess: (data) => {
       console.log(data)
       setCookie('accessToken', data?.payload?.accessToken, data && { path: '/', maxAge: data.payload && data?.payload?.content?.exp - data?.payload?.content?.iat })

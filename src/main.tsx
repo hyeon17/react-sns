@@ -13,7 +13,7 @@ import { HelmetProvider } from "react-helmet-async";
 // if (import.meta.env.VITE_MOCKING_ENABLE === MSWStatus.ACTIVE) {
 //   worker.start({ onUnhandledRequest: "bypass" });
 // }
-worker.start({ onUnhandledRequest: "bypass" })
+// worker.start({ onUnhandledRequest: "bypass" })
 
 const queryClient = new QueryClient(
   import.meta.env.MODE === "development"

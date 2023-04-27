@@ -41,7 +41,7 @@ return (
             })} type="text" placeholder="test@email.com"/>
                 <S.LoginInput {...register('password',{required: 'Password is required',
                pattern: { // input의 정규식 패턴
-                value: /^[A-za-z0-9]{8,16}$/,
+                value:  /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,16}$/,
                 message: '비밀번호는 숫자, 영문 대문자, 소문자를 포함한 8글자 이상 16글자 이하 이여야 합니다.',
               },
               

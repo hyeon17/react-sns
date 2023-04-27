@@ -4,10 +4,16 @@ import * as S from './style';
 import { SignupResponse } from "@/types/response";
 import { AxiosError } from "axios";
 import { UseMutateFunction } from "@tanstack/react-query";
+import { LoginLargeButton } from "../Header/Styled";
 
-interface SignFormProps {
-    mutate: UseMutateFunction<SignupResponse | undefined, AxiosError, SignupRequest>
+export interface SignFormProps {
+    mutate: (data: SignupForm) => void;
   }
+export interface SignupForm {
+  email:  FormDataEntryValue;
+  username:  FormDataEntryValue;
+  password:  FormDataEntryValue;
+}
 
 function SignupForm({ mutate }:SignFormProps) {
     const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<SignupRequest>({mode: 'onChange'});
@@ -18,7 +24,8 @@ function SignupForm({ mutate }:SignFormProps) {
     formData.append('email', data.email)
     formData.append('username', data.username)
     formData.append('password', data.password)
-        mutate({ email: formData.get('email'), username: formData.get('username'), password: formData.get('password') })
+    
+      mutate({ email: formData.get('email')!, username: formData.get('username')!, password: formData.get('password')! })
         console.log(data)
     }
     
@@ -53,7 +60,7 @@ function SignupForm({ mutate }:SignFormProps) {
         })} type="password" placeholder='Password'/>
        <S.ErrorSignMessage>{errors.password?.message}</S.ErrorSignMessage> 
 
-        <button disabled={isSubmitting}>가입</button>
+        <LoginLargeButton disabled={isSubmitting}>가입</LoginLargeButton>
         </S.LogForm>
       ) 
 }

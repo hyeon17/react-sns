@@ -19,7 +19,7 @@ export const Container = styled.div`
 export const LoginBox = styled.div`
   padding: 2rem;
   width: 300px;
-  height: 350px;
+  height: 360px;
   border: 1px solid rgb(219,219,219);
   border-radius: 1px;
 `
@@ -28,7 +28,7 @@ export const LoginLogo = styled.img`
   margin: 0 auto;
   width: 200px;
   height: 80px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 `
 
 export const LoginInput = styled.input`

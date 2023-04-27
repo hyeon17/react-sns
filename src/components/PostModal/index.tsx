@@ -75,8 +75,8 @@ function PostModal({ contents, mutate }: modalType) {
     formData.append('content', text);
     formData.append('files', selectedFile);
     mutate({ content: formData.get('content')!, files: formData.get('files')! });
-    // closeModal();
-    // alert('게시물이 등록되었습니다.');
+    closeModal();
+    alert('게시물이 등록되었습니다.');
   };
 
   return (

@@ -12,15 +12,10 @@ import { login } from "@/api/auth";
 import { useMutate } from "@/components/form/useMutate";
 
 
+import Header from "@/components/Header";
+
 function Router() {
   const {mutate, isLoading, error} = useMutate();
-  // const { mutate, isLoading, error } = useMutation(login, {
-  //   onSuccess: (data: LoginResponse) => {
-  //     console.log(data)
-  //     if(!data) return;
-  //     setCookie('accessToken', data.payload!.accessToken, { path: '/', maxAge: data.payload!.content?.exp - data.payload!.content?.iat })    
-  //   },
-  // })
 
   return (
     <BrowserRouter>
@@ -33,7 +28,7 @@ function Router() {
         <Route path="/signup" element={<Signup />} />
         <Route
           path="/test"
-          element={<BasicModal content={<LoginForm mutate={mutate} isLoading={isLoading} error={error} modal={true}/>} />}
+          element={<BasicModal contents={<LoginForm mutate={mutate} isLoading={isLoading} error={error} modal={true}/>} />}
         />
         <Route path="*" element={<>notFound</>} />
       </Routes>

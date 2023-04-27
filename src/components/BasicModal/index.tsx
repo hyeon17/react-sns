@@ -4,7 +4,7 @@ import { useStore } from '../../store/store';
 import * as S from './style';
 import { useEffect } from 'react';
 
-function BasicModal({ contents }: modalType) {
+function BasicModal({ contents }: Omit<modalType, 'mutate'>) {
 
   const { openModal, closeModal, getIsModalOpen } = useStore();
 

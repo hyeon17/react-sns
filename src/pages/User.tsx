@@ -4,6 +4,7 @@ import axios from 'axios'
 import UserInfo from "@/components/User/UserInfo"
 import PostList from "@/components/User/PostList"
 import { instance } from "@/api/axios"
+import Header from "@/components/Header"
 
 type posts = {
   id: number
@@ -49,6 +50,7 @@ function User() {
 
   return (
   <>
+    <Header />
     <UserInfo userProfile={userProfile} postLength={postLength} />
     <PostList userPost={userPost} />
   </>

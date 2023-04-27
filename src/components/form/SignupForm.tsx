@@ -1,29 +1,28 @@
 import { SignupRequest } from "@/types/request";
 import { FieldErrors, useForm } from "react-hook-form";
 import * as S from './style';
-import { SignupResponse } from "@/types/response";
-import { AxiosError } from "axios";
-import { UseMutateFunction } from "@tanstack/react-query";
+import { LoginLargeButton } from "../Header/Styled";
 
-interface SignFormProps {
-    mutate: UseMutateFunction<SignupResponse | undefined, AxiosError, SignupRequest>
+export interface SignFormProps {
+    mutate: (data: SignupForm) => void;
   }
+export interface SignupForm {
+  email:  FormDataEntryValue;
+  username:  FormDataEntryValue;
+  password:  FormDataEntryValue;
+}
 
 function SignupForm({ mutate }:SignFormProps) {
     const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<SignupRequest>({mode: 'onChange'});
-    //로그인 error메세지 표시는 로그인 요청을 보내고 응답으로 에러가 오면 그것을 이용해서 에러 메세지를 보여준다.(이메일 혹은 비밀번호가 일치하지 않습니다.)
-    // 이메일/비밀번호는 공통으로 에러 메세지 표시 비밀번호 유추 할 수 있기때문
-    // const onRegisterClick = () => {
-    //     reset();
-    //     setType("register");
-    //   }
-    //   const onLoginClick = () => {
-    //     reset();
-    //     setType("login");
-    //   }
-
+   
+    
     const onValid = (data: SignupRequest) => {
-        mutate(data)
+      const formData = new FormData();
+    formData.append('email', data.email)
+    formData.append('username', data.username)
+    formData.append('password', data.password)
+    
+      mutate({ email: formData.get('email')!, username: formData.get('username')!, password: formData.get('password')! })
         console.log(data)
     }
     
@@ -58,7 +57,7 @@ function SignupForm({ mutate }:SignFormProps) {
         })} type="password" placeholder='Password'/>
        <S.ErrorSignMessage>{errors.password?.message}</S.ErrorSignMessage> 
 
-        <button disabled={isSubmitting}>가입</button>
+        <LoginLargeButton disabled={isSubmitting}>가입</LoginLargeButton>
         </S.LogForm>
       ) 
 }

@@ -12,11 +12,13 @@ export const ModalWrapper = styled.div`
   justify-content: center;
   align-items: center;
   overflow: auto;
+  
 `;
 
 export const Content = styled.div`
   background-color: white;
   padding: 20px;
+  border-radius: 10px;
 `;
 
 

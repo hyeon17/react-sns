@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 
 function PostModal({ contents, mutate }: modalType) {
-  const { closeModal, getIsModalOpen } = useStore();
+  const { closePostModal, getIsPostModalOpen } = useStore();
   const [text, setText] = useState<string>('');
   const [backspacePressed, setBackspacePressed] = useState<boolean>(false); // backspace 버튼 눌린 여부 저장
   const MAX_LENGTH: number = 1000;
@@ -75,18 +75,18 @@ function PostModal({ contents, mutate }: modalType) {
     formData.append('content', text);
     formData.append('files', selectedFile);
     mutate({ content: formData.get('content')!, files: formData.get('files')! });
-    closeModal();
+    closePostModal();
     alert('게시물이 등록되었습니다.');
   };
 
   return (
-    <S.ModalWrapper isModalOpen={getIsModalOpen()}>
+    <S.ModalWrapper isModalOpen={getIsPostModalOpen()}>
       <Helmet>
         <title>새 게시물 만들기 · Photogram </title>
       </Helmet>
       <S.Content>
         <S.Header>
-          <S.CloseButton onClick={closeModal} />
+          <S.CloseButton onClick={closePostModal} />
           <S.Title>새 게시물 만들기</S.Title>
           <S.PostButton onClick={PostButton}>공유하기</S.PostButton>
         </S.Header>

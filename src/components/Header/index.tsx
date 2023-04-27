@@ -21,7 +21,7 @@ const verify = async () => {
 function Header() {
   const accessToken = getCookie(ACCESSTOKEN_KEY);
   const queryClient = useQueryClient();
-  const { openModal } = useStore();
+  const { openPostModal } = useStore();
   const location = useLocation()
   
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -50,7 +50,7 @@ function Header() {
               <S.HomeIcon src={homeIcon} alt='Home'/>홈
             </NavLink>
             <NavLink to={location.pathname + location.search}>
-              <S.PostingIcon src={addPostingIcon} alt='' onClick={() => openModal()} />게시물 등록
+              <S.PostingIcon src={addPostingIcon} alt='' onClick={() => openPostModal()} />게시물 등록
             </NavLink>
           </S.HeaderCenter>
         </div>

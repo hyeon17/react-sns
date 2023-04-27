@@ -4,7 +4,9 @@ import axios from 'axios'
 import UserInfo from "@/components/User/UserInfo"
 import PostList from "@/components/User/PostList"
 import { instance } from "@/api/axios"
-import { getBearerToken, getCookie } from "@/util"
+import Header from "@/components/Header"
+import { useStore } from "@/store/store"
+import Post from "./Post"
 
 type posts = {
   id: number
@@ -29,6 +31,8 @@ function User() {
   const params = useParams()
   const userName: string | undefined = params?.user
 
+  const {getIsPostModalOpen}=useStore();
+
   const [userProfile, setUserProfile] = useState<profile>()
   const [postLength, setPostLength] = useState(0)
   const [userPost, setUserPost] = useState<posts[]>()
@@ -50,8 +54,10 @@ function User() {
 
   return (
   <>
+    <Header />
     <UserInfo userProfile={userProfile} postLength={postLength} />
     <PostList userPost={userPost} />
+    {getIsPostModalOpen() && <Post />}
   </>
   );
 }

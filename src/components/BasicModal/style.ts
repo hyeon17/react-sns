@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { IoMdClose } from 'react-icons/io';
 import { ModalState } from '@/store/store';
+import { theme } from '../../styles/theme';
 
 export const ModalWrapper = styled.div<Pick<ModalState, 'isModalOpen'>>`
   position: fixed;
@@ -8,7 +9,7 @@ export const ModalWrapper = styled.div<Pick<ModalState, 'isModalOpen'>>`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: ${theme.colors.dimGray};
   justify-content: center;
   align-items: center;
   overflow: ${(props) => (props.isModalOpen ? 'hidden' : 'auto')};
@@ -20,7 +21,6 @@ export const Content = styled.div`
   padding: 20px;
   border-radius: 10px;
 `;
-
 
 export const CloseButton = styled(IoMdClose)`
   position: absolute;

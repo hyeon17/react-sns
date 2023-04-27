@@ -8,6 +8,10 @@ const GlobalStyle = createGlobalStyle`
     height: 100vh;
     ${theme.fonts.main}
   }
+  a {
+    text-decoration: none;
+    color:inherit;
+  }
 `;
 
 export default GlobalStyle;

@@ -17,6 +17,8 @@ export const authHandler = [
   rest.get("/auth/verify", async (req, res, ctx) => {
     const token = getBearerToken(req.headers.get(AUTHORIZATION_KEY));
 
+    if(!token) return res(ctx.status(401), ctx.json({ok:false, error: {message: '인증되지 않은 사용자입니다'}}))
+
     const user = mockUserList[0];
 
     return res(

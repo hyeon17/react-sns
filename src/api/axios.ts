@@ -10,7 +10,7 @@ import { createBearerToken } from "@/util";
 
 const getInstance = () => {
   const instance = axios.create({
-    baseURL: 'http://teamsns-env.eba-xrpy64pm.ap-northeast-2.elasticbeanstalk.com',
+    baseURL: "http://teamsns-env.eba-xrpy64pm.ap-northeast-2.elasticbeanstalk.com",
     withCredentials: true,
   });
 

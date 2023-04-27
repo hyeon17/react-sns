@@ -1,46 +1,27 @@
-
+import { instance } from "@/api/axios";
+import { ACCESSTOKEN_KEY } from "@/constants";
+import { setCookie } from "@/util";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
 import LoginForm from "@/components/form/LoginForm";
 import { NavLink, useLocation, useNavigate, useMatch } from "react-router-dom";
 import * as S from '@/components/form/style';
-import { useMutation } from "@tanstack/react-query";
 import { login } from "@/api/auth";
-import { setCookie } from "@/util";
 import { AxiosError } from "axios";
 import { useState } from "react";
 import { LoginResponse } from "@/types/response";
-
- // const todo: LoginResponse = {
-  //   ok: true,
-  //   payload: {
-  //     content: {
-  //       id: 1,
-  //       username: 'd',
-  //       email: 'dd',
-  //       exp: 131,
-  //       iat: 1,
-  //     },
-  //   accessToken: 'ddd',
-  //   },
-  // };
-
+import { LoginRequest } from "@/types/request";
 
 function Login() {
   const navigate = useNavigate();
-  const { mutate, isLoading, error } = useMutation(login, {
+  const { mutate, isLoading, error } = useMutation((user:LoginRequest) => login(user), {
     onSuccess: (data: LoginResponse) => {
       console.log(data)
       navigate('/')
       if(!data) return;
       setCookie('accessToken', data.payload!.accessToken, { path: '/', maxAge: data.payload!.content?.exp - data.payload!.content?.iat })    
     },
-    // onError: (err: AxiosError) => {
-    //   console.log(err)
-    // },
   })
-
-  // error && console.log({error})
-  
   
   return (
       <S.Container>

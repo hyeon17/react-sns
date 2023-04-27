@@ -46,8 +46,8 @@ export const Preview = styled.div`
 `;
 
 export const PreviewImage = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 98%;
+  height: 98%;
   object-fit: contain;
 `;
 

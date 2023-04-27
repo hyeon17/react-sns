@@ -1,4 +1,11 @@
+
 /**content: 노드 */
 export interface modalType {
-  content: React.ReactNode;
+  contents: React.ReactNode;
+  mutate: (data: PostForm) => void;
+}
+
+export interface PostForm {
+  content: FormDataEntryValue;
+  files: FormDataEntryValue;
 }

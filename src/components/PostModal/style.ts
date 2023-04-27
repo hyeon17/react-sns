@@ -3,7 +3,7 @@ import { BiArrowBack } from 'react-icons/bi';
 import { theme } from '../../styles/theme';
 import { ModalState } from '@/store/store';
 
-export const ModalWrapper = styled.form<ModalState>`
+export const ModalWrapper = styled.div<Pick<ModalState, 'isModalOpen'>>`
   position: fixed;
   top: 0;
   left: 0;

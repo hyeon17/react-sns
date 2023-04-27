@@ -1,6 +1,6 @@
 import create from 'zustand';
 
-type ModalState = {
+export type ModalState = {
   isModalOpen: boolean;
   openModal: () => void;
   closeModal: () => void;

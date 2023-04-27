@@ -4,6 +4,7 @@ import axios from 'axios'
 import UserInfo from "@/components/User/UserInfo"
 import PostList from "@/components/User/PostList"
 import { instance } from "@/api/axios"
+import { getBearerToken, getCookie } from "@/util"
 
 type posts = {
   id: number
@@ -41,7 +42,7 @@ function User() {
     setPostLength(response.data.payload.posts.length)
     setUserPost(response.data.payload.posts)
   }
-
+  
   useEffect(() => {
     console.log(params)
     getPosts(userName)

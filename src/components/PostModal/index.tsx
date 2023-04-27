@@ -4,7 +4,8 @@ import * as S from './style';
 import { Helmet } from 'react-helmet-async';
 import React, { useState } from 'react';
 
-function PostModal({ content }: modalType) {
+
+function PostModal({ contents, mutate }: modalType) {
   const { openModal, closeModal, isModalOpen } = useStore();
   const [text, setText] = useState<string>('');
   const [backspacePressed, setBackspacePressed] = useState<boolean>(false); // backspace 버튼 눌린 여부 저장
@@ -58,8 +59,24 @@ function PostModal({ content }: modalType) {
   };
   const count: number = CountTexts(text);
 
-  const PostButton = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const PostButton = async (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.preventDefault();
+
+    const selectedFile = (contents as React.ReactElement<{ selectedFile: File }>).props.selectedFile;
+    if (text.length === 0) {
+      alert('게시물에 대해 설명해주세요.');
+      return;
+    }
+    if (selectedFile === undefined) {
+      alert('사진 또는 동영상을 선택해주세요');
+      return;
+    }
+    const formData = new FormData();
+    formData.append('content', text);
+    formData.append('files', selectedFile);
+    mutate({ content: formData.get('content')!, files: formData.get('files')! });
+    // closeModal();
+    // alert('게시물이 등록되었습니다.');
   };
 
   return (
@@ -74,7 +91,7 @@ function PostModal({ content }: modalType) {
           <S.PostButton onClick={PostButton}>공유하기</S.PostButton>
         </S.Header>
         <S.PostPageWrapper>
-          {content}
+          {contents}
           <S.Post>
             <S.PostContent
               placeholder='게시물에 대해 설명해보세요...'

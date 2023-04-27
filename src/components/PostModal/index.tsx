@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 
 
 function PostModal({ contents, mutate }: modalType) {
-  const { openModal, closeModal, isModalOpen } = useStore();
+  const { closeModal, getIsModalOpen } = useStore();
   const [text, setText] = useState<string>('');
   const [backspacePressed, setBackspacePressed] = useState<boolean>(false); // backspace 버튼 눌린 여부 저장
   const MAX_LENGTH: number = 1000;
@@ -80,7 +80,7 @@ function PostModal({ contents, mutate }: modalType) {
   };
 
   return (
-    <S.ModalWrapper openModal={openModal} closeModal={closeModal} isModalOpen={isModalOpen}>
+    <S.ModalWrapper isModalOpen={getIsModalOpen()}>
       <Helmet>
         <title>새 게시물 만들기 · Photogram </title>
       </Helmet>

@@ -31,7 +31,7 @@ function User() {
   const params = useParams()
   const userName: string | undefined = params?.user
 
-  const {getIsModalOpen}=useStore();
+  const {getIsPostModalOpen}=useStore();
 
   const [userProfile, setUserProfile] = useState<profile>()
   const [postLength, setPostLength] = useState(0)
@@ -57,7 +57,7 @@ function User() {
     <Header />
     <UserInfo userProfile={userProfile} postLength={postLength} />
     <PostList userPost={userPost} />
-    {getIsModalOpen() && <Post />}
+    {getIsPostModalOpen() && <Post />}
   </>
   );
 }

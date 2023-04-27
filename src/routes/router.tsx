@@ -28,7 +28,7 @@ function Router() {
         <Route path="/signup" element={<Signup />} />
         <Route
           path="/test"
-          element={<BasicModal content={<LoginForm mutate={mutate} isLoading={isLoading} error={error} modal={true}/>} />}
+          element={<BasicModal contents={<LoginForm mutate={mutate} isLoading={isLoading} error={error} modal={true}/>} />}
         />
         <Route path="*" element={<>notFound</>} />
       </Routes>

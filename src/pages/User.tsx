@@ -5,6 +5,8 @@ import UserInfo from "@/components/User/UserInfo"
 import PostList from "@/components/User/PostList"
 import { instance } from "@/api/axios"
 import Header from "@/components/Header"
+import { useStore } from "@/store/store"
+import Post from "./Post"
 
 type posts = {
   id: number
@@ -28,6 +30,8 @@ type profile = {
 function User() {
   const params = useParams()
   const userName: string | undefined = params?.user
+
+  const {getIsModalOpen}=useStore();
 
   const [userProfile, setUserProfile] = useState<profile>()
   const [postLength, setPostLength] = useState(0)
@@ -53,6 +57,7 @@ function User() {
     <Header />
     <UserInfo userProfile={userProfile} postLength={postLength} />
     <PostList userPost={userPost} />
+    {getIsModalOpen() && <Post />}
   </>
   );
 }

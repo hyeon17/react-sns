@@ -1,5 +1,5 @@
 import React, { useState }   from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import photo from '@/assets/logo.png'
 import homeIcon from '@/assets/Home.png'
 import addPostingIcon from '@/assets/AddPosting.png'
@@ -10,7 +10,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { getCookie } from '@/util';
 import { ACCESSTOKEN_KEY } from '@/constants';
 import { instance } from '@/api/axios';
-
+import { useStore } from '@/store/store';
 
 const verify = async () => {
   const {data} = await instance.get('/auth/verify');
@@ -20,7 +20,9 @@ const verify = async () => {
 
 function Header() {
   const accessToken = getCookie(ACCESSTOKEN_KEY);
-  const queryClient = useQueryClient()
+  const queryClient = useQueryClient();
+  const { openModal } = useStore();
+  const location = useLocation()
   
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -47,8 +49,8 @@ function Header() {
             <NavLink to="/">
               <S.HomeIcon src={homeIcon} alt='Home'/>홈
             </NavLink>
-            <NavLink to="/contact">
-              <S.PostingIcon src={addPostingIcon} alt=''/>게시물 등록
+            <NavLink to={location.pathname + location.search}>
+              <S.PostingIcon src={addPostingIcon} alt='' onClick={() => openModal()} />게시물 등록
             </NavLink>
           </S.HeaderCenter>
         </div>

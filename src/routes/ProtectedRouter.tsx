@@ -9,6 +9,8 @@ function ProtectedRouter() {
   const isLogin = getCookie(ACCESSTOKEN_KEY);
   const navigate = useNavigate();
 
+  console.log("Protected")
+
   useEffect(() => {
     if (!isLogin || isAuthenticated === "FAILED") return navigate("/login");
   }, [isAuthenticated]);

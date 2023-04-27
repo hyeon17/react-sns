@@ -11,17 +11,7 @@ interface SignFormProps {
 
 function SignupForm({ mutate }:SignFormProps) {
     const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<SignupRequest>({mode: 'onChange'});
-    //로그인 error메세지 표시는 로그인 요청을 보내고 응답으로 에러가 오면 그것을 이용해서 에러 메세지를 보여준다.(이메일 혹은 비밀번호가 일치하지 않습니다.)
-    // 이메일/비밀번호는 공통으로 에러 메세지 표시 비밀번호 유추 할 수 있기때문
-    // const onRegisterClick = () => {
-    //     reset();
-    //     setType("register");
-    //   }
-    //   const onLoginClick = () => {
-    //     reset();
-    //     setType("login");
-    //   }
-    
+   
     
     const onValid = (data: SignupRequest) => {
       const formData = new FormData();

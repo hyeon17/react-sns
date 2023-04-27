@@ -2,14 +2,15 @@ import { modalType } from '@/types/modal';
 import { useStore } from '../../store/store';
 
 import * as S from './style';
+import { useEffect } from 'react';
 
-function BasicModal({ content }: modalType) {
+function BasicModal({ contents }: Omit<modalType, 'mutate'>) {
 
-  const { closeModal } = useStore();
+  const { openModal, closeModal, getIsModalOpen } = useStore();
 
   return (
-    <S.ModalWrapper>
-      <S.Content>{content}</S.Content>
+    <S.ModalWrapper isModalOpen={getIsModalOpen()}>
+      <S.Content>{contents}</S.Content>
       <S.CloseButton onClick={closeModal} />
     </S.ModalWrapper>
   );

@@ -96,8 +96,11 @@ export const LoginLargeButton = styled.button`
   padding: 7px 16px;
   text-align: center;
   text-decoration: none;
-  width: 250px;
-  /* width: 100%; */
+  width: 310.6px;
+  margin-top: 10px;
+  &:hover {
+    background-color: ${({theme}) => theme.colors.darkSky};
+  };
 `
 
 export const LoginMediumButton = styled(NavLink)`

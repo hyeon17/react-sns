@@ -6,6 +6,7 @@ import { AxiosError } from "axios";
 import { UseMutateFunction } from "@tanstack/react-query";
 import logo from "@/assets/logo.png"
 import { NavLink, useNavigate } from "react-router-dom";
+import { LoginLargeButton } from "../Header/Styled";
 
 interface LoginFormProps {
   mutate: (data:LoginRequest)=>void;
@@ -17,8 +18,7 @@ interface LoginFormProps {
 
 function LoginForm({ mutate, isLoading, error, modal }: LoginFormProps) {
     const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<LoginRequest>();
-    //로그인 error메세지 표시는 로그인 요청을 보내고 응답으로 에러가 오면 그것을 이용해서 에러 메세지를 보여준다.(이메일 혹은 비밀번호가 일치하지 않습니다.)
-    // 이메일/비밀번호는 공통으로 에러 메세지 표시 비밀번호 유추 할 수 있기때문
+    
     const onValid = (data: LoginRequest) => {
       mutate(data)
       console.log(data)
@@ -41,14 +41,14 @@ return (
             })} type="text" placeholder="test@email.com"/>
                 <S.LoginInput {...register('password',{required: 'Password is required',
                pattern: { // input의 정규식 패턴
-                value: /^[A-za-z0-9]{8,16}$/,
+                value:  /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,16}$/,
                 message: '비밀번호는 숫자, 영문 대문자, 소문자를 포함한 8글자 이상 16글자 이하 이여야 합니다.',
               },
               
               })} type="password" placeholder='Password'/>
              
                 
-             <button>{isLoading ? "Loading..." : "로그인"}</button>
+             <LoginLargeButton>{isLoading ? "Loading..." : "로그인"}</LoginLargeButton>
              
       {errors.email?.message || errors.password?.message || error? <S.ErrorLoginMessage>이메일 또는 비밀번호가 일치하지 않습니다.</S.ErrorLoginMessage> : null}
       </S.LogForm>

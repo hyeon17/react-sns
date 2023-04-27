@@ -1,31 +1,12 @@
 import { useParams } from "react-router-dom"
 import { useState, useEffect } from 'react'
-import axios from 'axios'
 import UserInfo from "@/components/User/UserInfo"
 import PostList from "@/components/User/PostList"
 import { instance } from "@/api/axios"
 import Header from "@/components/Header"
 import { useStore } from "@/store/store"
 import Post from "./Post"
-
-type posts = {
-  id: number
-  files: string
-  likes: number
-  createdAt: string
-  updatedAt: string
-}
-
-type userPosts = {
-  user: profile
-  posts: posts[]
-}
-
-type profile = {
-  id: number
-  email: string
-  username: string
-}
+import { profile, posts } from "@/types/user"
 
 function User() {
   const params = useParams()

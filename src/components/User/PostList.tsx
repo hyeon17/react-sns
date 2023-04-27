@@ -3,18 +3,10 @@ import * as S from './style'
 import data from './testData'
 import Post from './Post';
 import { ReactComponent as PostLogo } from "@/assets/postLogo.svg"
-import { Link } from 'react-router-dom'
+import { posts } from "@/types/user"
 import BasicModal from '../BasicModal';
 import { useStore } from '@/store/store';
 import PostView from '../PostView/PostView';
-
-type posts = {
-  id: number
-  files: string
-  likes: number
-  createdAt: string
-  updatedAt: string
-}
 
 function PostList({userPost}: {userPost: posts[] | undefined}) {
   const [postId, setPostId] = useState(0)

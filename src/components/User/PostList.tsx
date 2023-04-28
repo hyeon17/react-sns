@@ -6,7 +6,7 @@ import { ReactComponent as PostLogo } from "@/assets/postLogo.svg"
 import { posts } from "@/types/user"
 import BasicModal from '../BasicModal';
 import { useStore } from '@/store/store';
-import PostView from '../PostView/PostView';
+import PostView from '../PostView';
 
 function PostList({userPost}: {userPost: posts[] | undefined}) {
   const [postId, setPostId] = useState(0)

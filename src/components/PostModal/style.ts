@@ -12,7 +12,8 @@ export const ModalWrapper = styled.div<Pick<ModalState, 'isModalOpen'>>`
   background-color: ${theme.colors.dimGray};
   justify-content: center;
   align-items: center;
-  overflow: ${(props) => (props.isModalOpen ? 'hidden' : 'auto')};
+  z-index: 100;
+  /* overflow: ${(props) => (props.isModalOpen ? 'hidden' : 'auto')}; */
   display: ${(props) => (props.isModalOpen ? 'flex' : 'none')};
 `;
 

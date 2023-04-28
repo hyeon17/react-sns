@@ -1,19 +1,23 @@
 import { Helmet } from "react-helmet-async";
 import * as S from '@/components/form/style';
 import SignupForm from "@/components/form/SignupForm";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logo from "@/assets/logo.png"
 import { useMutation } from "@tanstack/react-query";
 import { signup } from "@/api/auth";
 import { setCookie } from "@/util";
 import { AxiosError } from "axios";
+import { SignupRequest } from "@/types/request";
+import { SignupResponse } from "@/types/response";
 
 function Signup() {
-  const { mutate } = useMutation(signup, {
-    onSuccess: (data) => {
+  const navigate = useNavigate();
+  const { mutate } = useMutation((user: SignupRequest) => signup(user), {
+    onSuccess: (data:SignupResponse) => {
       console.log(data)
-      setCookie('accessToken', data?.payload?.accessToken, data && { path: '/', maxAge: data.payload && data?.payload?.content?.exp - data?.payload?.content?.iat })
-
+      navigate('/')
+      if(!data) return;
+      setCookie('accessToken', data.payload!.accessToken, { path: '/', maxAge: data.payload!.content?.exp - data.payload!.content?.iat })
     },
     onError: (err: AxiosError) => {
       console.log(err)

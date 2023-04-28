@@ -6,10 +6,11 @@ import { ReactComponent as CommentLogo } from "@/assets/commentLogo.svg"
 type Props ={
   src: string
   like: number
+  comment: number
   onClick: () => void
 }
 
-function Post({src, like, onClick}: Props) {
+function Post({src, like, comment, onClick}: Props) {
   const [isHovering, setIsHovering] = useState(false)
 
   const MouseOverHandler = () => {
@@ -27,10 +28,10 @@ function Post({src, like, onClick}: Props) {
             <LikeLogo />
             <span>{like}</span>
           </S.flexCenterHoverDiv>
-          {/* <S.flexCenterHoverDiv>
+          <S.flexCenterHoverDiv>
             <CommentLogo />
             <span>{comment}</span>
-          </S.flexCenterHoverDiv> */}
+          </S.flexCenterHoverDiv>
         </S.hoverDiv>:null}
       <div className="imgWrapper">
         <img src={src} />

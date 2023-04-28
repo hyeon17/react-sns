@@ -20,7 +20,7 @@ function PostList({userPost}: {userPost: posts[] | undefined}) {
       </S.flexCenterDiv>
       <S.flexWrapDiv>
         {userPost?.map(post => (
-          <Post key={post.id} src={post.files} like={post.likes} onClick={() => {
+          <Post key={post.id} src={post.files} like={post.likes} comment={post.comments}onClick={() => {
             openModal();
             setPostId(post.id)
           }} />

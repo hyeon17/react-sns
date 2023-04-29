@@ -13,7 +13,7 @@ export const postMutation = async ({ content, files }: PostForm) => {
         Authorization: token,
         'Content-Type': 'multipart/form-data',
       },
-    },
+    }
   );
   return res;
 };

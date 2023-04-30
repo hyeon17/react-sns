@@ -1,19 +1,22 @@
 import PostModal from '@/components/PostModal';
 import React, { useState, useEffect, useMemo } from 'react';
 import * as S from '../styles/postPageStyle';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { PostForm } from '../types/modal';
 import { postMutation } from '@/api/post';
 
 function Post() {
+  const queryClient = useQueryClient();
   const { mutate } = useMutation(({ content, files }: PostForm) => postMutation({ content, files }), {
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
+      // queryClient.invalidateQueries([`posts/${userName}`]);
+      console.log('게시물 작성 성공');
     },
     onError: (err) => {
       console.log(err);
     },
   });
+
   const [selectedFile, setSelectedFile] = useState<File | undefined>();
 
   const dropFile = (event: React.DragEvent<HTMLDivElement>) => {

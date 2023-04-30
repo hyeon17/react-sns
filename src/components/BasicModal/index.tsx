@@ -1,12 +1,9 @@
-import { modalType } from '@/types/modal';
-import { useStore } from '../../store/store';
+import { modalType } from "@/types/modal";
+import { useStore } from "../../store/store";
+import * as S from "./style";
 
-import * as S from './style';
-import { useEffect } from 'react';
-
-function BasicModal({ contents }: Omit<modalType, 'mutate'>) {
-
-  const { openModal, closeModal, getIsModalOpen } = useStore();
+function BasicModal({ contents }: Omit<modalType, "mutate">) {
+  const { closeModal, getIsModalOpen } = useStore();
 
   return (
     <S.ModalWrapper isModalOpen={getIsModalOpen()}>

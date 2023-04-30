@@ -1,25 +1,59 @@
 import { useState, useEffect } from 'react';
-import { getCookie } from '@/util';
-import { instance } from '@/api/axios';
 import * as S from './style';
 import Loading from '../Loading';
-import { Comment } from './../../types/entity';
+import { useStore } from '../../store/store';
+import { getPost, deletePost } from '@/api/post';
+import { addLike, deleteLike } from '@/api/user';
+import { useMutation } from '@tanstack/react-query';
+import { commentMutation } from '@/api/user';
+import { CommentForm } from '@/types/modal';
 
 export const PostView = ({ id }: { id: number }) => {
   const [post, setPost] = useState<any>(null);
+  const [isLiked, setIsLiked] = useState<boolean>(false);
+  const [comments, setComments] = useState<any>('');
+  const { mutate } = useMutation(({ id, content }: CommentForm) => commentMutation({ id, content }), {
+    onSuccess: () => {
+      console.log('success');
+    },
+  });
 
-  const getPost = async (id: number) => {
-    const token = getCookie('accessToken');
-    const response = await instance.get(`/posts/${id}`, {
-      headers: { Authorization: token },
-    });
-    console.log(response.data.payload);
-    setPost(response.data.payload);
-  };
+  const { closeModal } = useStore();
+  const formatDate = (date: string) => new Date(date).toLocaleString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
 
   useEffect(() => {
-    getPost(id);
+    getPost(id).then((data) => {
+      setPost(data);
+    });
   }, []);
+
+  const deletePostButton = async () => {
+    await deletePost(id);
+    alert('삭제되었습니다.');
+    closeModal();
+  };
+
+  const likeClick = async () => {
+    post.likes.length > 0 ? await deleteLike(id) : await addLike(id);
+    setIsLiked(!isLiked);
+  };
+
+  const textChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const inputValue: string = event.target.value;
+    setComments(inputValue);
+  };
+
+  const addComments = () => {
+    mutate({ id, content: comments });
+    alert('댓글이 등록되었습니다.');
+    setComments('');
+  };
+
+  const postComments = post?.comments.map((comment: any) => (
+    <S.PostCommentsWrapper key={comment.id}>
+      <S.PostCommentContent>{comment.content}</S.PostCommentContent>
+    </S.PostCommentsWrapper>
+  ));
 
   return (
     <>
@@ -31,23 +65,26 @@ export const PostView = ({ id }: { id: number }) => {
           <S.PostContentWrapper>
             <S.PostAuthor>{post.author.username}</S.PostAuthor>
             <S.PostContent>{post.content}</S.PostContent>
+            {postComments}
+            <S.ButtonContentWrapper>
+              <S.ButtonWrapper onClick={likeClick}>{post.likes.length > 0 ? <S.PostLikes /> : <S.PostLikesIcon />}</S.ButtonWrapper>
+              <S.ButtonWrapper>
+                <S.PostEditIcon />
+              </S.ButtonWrapper>
+              <S.ButtonWrapper>
+                <S.PostDeleteIcon onClick={deletePostButton} />
+              </S.ButtonWrapper>
+            </S.ButtonContentWrapper>
             <S.PostDate>
-              {post.createdAt === post.updatedAt ? (
-                <div>{new Date(post.createdAt).toLocaleString()}</div>
-              ) : (
-                <div>{new Date(post.updatedAt).toLocaleString()}(수정됨)</div>
-              )}
+              <div>
+                {formatDate(post.updatedAt || post.createdAt)}
+                {post.createdAt !== post.updatedAt && '(수정됨)'}
+              </div>
             </S.PostDate>
-            <S.PostLikesWrapper>
-              <S.PostLikesIcon />
-              <S.PostLikesCount />
-              {post.likes}
-            </S.PostLikesWrapper>
-            <S.PostCommentsWrapper>
-              <S.PostCommentsIcon />
-              <S.PostCommentsCount />
-              {post.Comments}
-            </S.PostCommentsWrapper>
+            <S.InputWrapper>
+              <S.CommentInput placeholder='댓글 달기' onChange={textChange} value={comments} />
+              <S.PostCommentButton onClick={addComments}>게시</S.PostCommentButton>
+            </S.InputWrapper>
           </S.PostContentWrapper>
         </S.PostViewWrapper>
       ) : (

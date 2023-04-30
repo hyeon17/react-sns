@@ -1,4 +1,8 @@
 import styled from 'styled-components';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { AiOutlineEdit } from 'react-icons/ai';
+import { AiOutlineDelete } from 'react-icons/ai';
+import { theme } from '../../styles/theme';
 
 export const PostViewWrapper = styled.div`
   display: flex;
@@ -27,56 +31,126 @@ export const PostContentWrapper = styled.div`
   justify-content: center;
   width: 400px;
   height: 100%;
+  margin-left: 30px;
 `;
 
-export const PostAuthor = styled.span`
-  font-size: 14px;
+export const PostAuthor = styled.div`
+  display: flex;
+  align-items: start;
+  font-size: 16px;
   font-weight: bold;
   color: #333;
-  margin: 16px 0;
+  height: 30px;
+  width: 100%;
+  justify-content: start;
+  margin: 10px 10px;
+  border-bottom: 1px solid ${theme.colors.lightGray};
 `;
 
-export const PostContent = styled.p`
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 16px;
-`;
-
-export const PostDate = styled.span`
-  font-size: 12px;
-  color: #999;
-  margin-bottom: 8px;
-`;
-
-export const PostLikesWrapper = styled.div`
+export const PostContent = styled.div`
   display: flex;
-  align-items: center;
-  margin-bottom: 16px;
-`;
-
-export const PostLikesIcon = styled.span`
+  justify-content: start;
   font-size: 16px;
-  color: #e1306c;
-  margin-right: 4px;
+  color: ${theme.colors.darkSky};
+  width: 100%;
+  margin: 20px 10px;
+  overflow: visible;
+  white-space: normal;
+  word-break: break-all;
 `;
-
-export const PostLikesCount = styled.span`
-  font-size: 14px;
-  color: #333;
-`;
-
 export const PostCommentsWrapper = styled.div`
   display: flex;
+  align-items: start;
+  justify-content: start;
+  width: 100%;
+  height: 300px;
+`;
+export const PostCommentContent = styled.div`
+  font-size: 12px;
+`;
+export const PostDate = styled.div`
+  display: flex;
+  justify-content: start;
+  font-size: 8px;
+  color: ${theme.colors.dimGray};
+  width: 100%;
+  margin: 20px 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid ${theme.colors.lightGray};
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
   align-items: center;
+  cursor: pointer;
 `;
 
-export const PostCommentsIcon = styled.span`
-  font-size: 16px;
-  color: #3897f0;
+export const PostLikesIcon = styled(AiOutlineHeart)`
+  font-size: 26px;
+  margin-right: 10px;
+  &:hover {
+    color: ${theme.colors.dimGray};
+  }
+`;
+export const PostLikes = styled(AiFillHeart)`
+  font-size: 26px;
+  margin-right: 10px;
+  color: #ed4956;
+`;
+
+export const PostEditIcon = styled(AiOutlineEdit)`
+  font-size: 26px;
+  margin-right: 10px;
+  &:hover {
+    color: ${theme.colors.dimGray};
+  }
+`;
+
+export const PostDeleteIcon = styled(AiOutlineDelete)`
+  font-size: 26px;
   margin-right: 4px;
+  &:hover {
+    color: ${theme.colors.dimGray};
+  }
 `;
 
-export const PostCommentsCount = styled.span`
-  font-size: 14px;
-  color: #333;
+export const ButtonContentWrapper = styled.div`
+  display: flex;
+  justify-content: start;
+  width: 100%;
+  border-top: 1px solid ${theme.colors.lightGray};
+  padding-top: 10px;
+`;
+
+export const InputWrapper = styled.form`
+  display: flex;
+  width: 100%;
+  height: 50px;
+`;
+
+export const CommentInput = styled.textarea`
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  word-wrap: break-word;
+  resize: none;
+  color: ${theme.colors.black};
+  &::placeholder {
+    color: ${theme.colors.dimGray};
+  }
+`;
+
+export const PostCommentButton = styled.button`
+  width: 70px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: ${theme.colors.sky};
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover {
+    color: ${theme.colors.darkSky};
+  }
 `;

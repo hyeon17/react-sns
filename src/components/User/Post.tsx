@@ -1,7 +1,7 @@
-import { useState } from "react"
-import * as S from './style'
-import { ReactComponent as LikeLogo } from "@/assets/likeLogo.svg"
-import { ReactComponent as CommentLogo } from "@/assets/commentLogo.svg"
+import { useState } from "react";
+import * as S from "./style";
+import { ReactComponent as LikeLogo } from "@/assets/likeLogo.svg";
+import { ReactComponent as CommentLogo } from "@/assets/commentLogo.svg";
 
 type Props ={
   src: string
@@ -14,15 +14,20 @@ function Post({src, like, comment, onClick}: Props) {
   const [isHovering, setIsHovering] = useState(false)
 
   const MouseOverHandler = () => {
-    setIsHovering(true)
-  }
+    setIsHovering(true);
+  };
 
   const MouseOutHandler = () => {
-    setIsHovering(false)
-  }
-  return(
-    <div className='postlink' onMouseOver={MouseOverHandler} onMouseOut={MouseOutHandler} onClick={onClick}>
-      {isHovering? 
+    setIsHovering(false);
+  };
+  return (
+    <div
+      className="postlink"
+      onMouseOver={MouseOverHandler}
+      onMouseOut={MouseOutHandler}
+      onClick={onClick}
+    >
+      {isHovering ? (
         <S.hoverDiv>
           <S.flexCenterHoverDiv>
             <LikeLogo />
@@ -32,12 +37,12 @@ function Post({src, like, comment, onClick}: Props) {
             <CommentLogo />
             <span>{comment}</span>
           </S.flexCenterHoverDiv>
-        </S.hoverDiv>:null}
+        </S.hoverDiv>):null}
       <div className="imgWrapper">
         <img src={src} />
       </div>
     </div>
-  )
+  );
 }
 
-export default Post
+export default Post;

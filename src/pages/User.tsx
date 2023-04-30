@@ -6,30 +6,28 @@ import { instance } from '@/api/axios';
 import Header from '@/components/Header';
 import { useStore } from '@/store/store';
 import Post from './Post';
-import { profile, posts } from '@/types/user';
+import { profile, posts, userPosts } from '@/types/user';
 import { getPostAll } from '@/api/user';
+import { useQuery } from '@tanstack/react-query';
 
 function User() {
   const params = useParams();
-  const userName: string | undefined = params?.user;
   const { getIsPostModalOpen } = useStore();
-  const [userProfile, setUserProfile] = useState<profile>();
-  const [postLength, setPostLength] = useState(0);
-  const [userPost, setUserPost] = useState<posts[]>();
 
-  useEffect(() => {
-    getPostAll(userName).then((res) => {
-      setUserProfile(res.user);
-      setPostLength(res.posts.length);
-      setUserPost(res.posts);
-    });
-  }, []);
+  const { data: posts, isLoading, error } = useQuery(['posts', params.user], () => getPostAll(params.user), {
+    onSuccess: () => {
+      console.log(posts)
+    }
+  })
+
+  if(isLoading) return <>로딩 중...</>
+  if(error) return <>error</>
 
   return (
     <>
       <Header />
-      <UserInfo userProfile={userProfile} postLength={postLength} />
-      <PostList userPost={userPost} />
+      <UserInfo userProfile={posts.user} postLength={posts.posts.length} />
+      <PostList userPost={posts.posts} />
       {getIsPostModalOpen() && <Post />}
     </>
   );

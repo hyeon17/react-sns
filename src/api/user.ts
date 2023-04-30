@@ -36,11 +36,11 @@ export const deleteLike = async (id: number) => {
 //   return response;
 // };
 
-export const commentMutation = async ({ id, content }: CommentForm) => {
+export const commentMutation = async ({ postId, content }: CommentForm) => {
   const token = getCookie('accessToken');
   const response = await instance.post<CreateCommentResponse>(
     `/comments`,
-    { id, content },
+    { postId, content },
     {
       headers: { Authorization: token },
     },
@@ -56,10 +56,10 @@ export const deleteComment = async (id: number) => {
   return response;
 };
 
-export const updateComment = async ({ id, content }: CommentForm) => {
+export const updateComment = async ({ postId, content }: CommentForm) => {
   const token = getCookie('accessToken');
   const response = await instance.put<UpdateCommentResponse>(
-    `/comments/${id}`,
+    `/comments/${postId}`,
     { content },
     {
       headers: { Authorization: token },

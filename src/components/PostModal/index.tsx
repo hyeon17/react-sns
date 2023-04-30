@@ -3,6 +3,7 @@ import { useStore } from '../../store/store';
 import * as S from './style';
 import { Helmet } from 'react-helmet-async';
 import React, { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 
 
 function PostModal({ contents, mutate }: modalType) {
@@ -59,7 +60,7 @@ function PostModal({ contents, mutate }: modalType) {
   };
   const count: number = CountTexts(text);
 
-  const PostButton = async (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const PostButton = (event: React.MouseEvent<HTMLElement, MouseEvent>) => {
     event.preventDefault();
 
     const selectedFile = (contents as React.ReactElement<{ selectedFile: File }>).props.selectedFile;
@@ -75,8 +76,9 @@ function PostModal({ contents, mutate }: modalType) {
     formData.append('content', text);
     formData.append('files', selectedFile);
     mutate({ content: formData.get('content')!, files: formData.get('files')! });
-    closePostModal();
     alert('게시물이 등록되었습니다.');
+    closePostModal();
+  
   };
 
   return (

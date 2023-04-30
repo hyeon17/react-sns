@@ -1,4 +1,5 @@
 
+
 /**content: 노드 */
 export interface modalType {
   contents: React.ReactNode;
@@ -8,4 +9,9 @@ export interface modalType {
 export interface PostForm {
   content: FormDataEntryValue;
   files: FormDataEntryValue;
+}
+
+export interface CommentForm {
+  id: number;
+  content: FormDataEntryValue;
 }

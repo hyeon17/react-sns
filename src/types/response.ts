@@ -28,12 +28,12 @@ export type CreatePostResponse = NonPayloadAPIResponse;
 
 export type GetPostsResponse = APIResponse<GetPostsPayload>;
 
-export type GetPostResposne = APIResponse<GetPostPayload>;
+export type GetPostResponse = APIResponse<GetPostPayload>;
 
 export type DeletePostResponse = NonPayloadAPIResponse;
 
 export type CreateCommentResponse = NonPayloadAPIResponse;
 
-export type UpdateCommentResonse = NonPayloadAPIResponse;
+export type UpdateCommentResponse = NonPayloadAPIResponse;
 
-export type DeleteCommnentResponse = NonPayloadAPIResponse;
+export type DeleteCommentResponse = NonPayloadAPIResponse;

@@ -9,8 +9,8 @@ type Props = {
   onClick: () => void;
 };
 
-function Post({ src, like, onClick }: Props) {
-  const [isHovering, setIsHovering] = useState(false);
+function Post({src, like, onClick }: Props) {
+  const [isHovering, setIsHovering] = useState(false)
 
   const MouseOverHandler = () => {
     setIsHovering(true);

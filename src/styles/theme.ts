@@ -15,7 +15,8 @@ const colors = {
   black: "#000000",
   white: "#ffffff",
   dimGray: "#00000066",
-  darkGray: "#00000099;"
+  darkGray: "#00000099;",
+  lightGray: "#d1cec5",
 };
 
 const fonts = {

@@ -4,9 +4,11 @@ import Loading from '../Loading';
 import { useStore } from '../../store/store';
 import { getPost, deletePost } from '@/api/post';
 import { addLike, deleteLike } from '@/api/user';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { commentMutation } from '@/api/user';
 import { CommentForm } from '@/types/modal';
+import { useParams } from 'react-router-dom';
+import PostDeleteButton from './PostDeleteButton';
 
 export const PostView = ({ id }: { id: number }) => {
   const [post, setPost] = useState<any>(null);
@@ -27,11 +29,11 @@ export const PostView = ({ id }: { id: number }) => {
     });
   }, []);
 
-  const deletePostButton = async () => {
-    await deletePost(id);
-    alert('삭제되었습니다.');
-    closeModal();
-  };
+  // const deletePostButton = async () => {
+  //   await deletePost(id);
+  //   alert('삭제되었습니다.');
+  //   closeModal();
+  // };
 
   const likeClick = async () => {
     post.likes.length > 0 ? await deleteLike(id) : await addLike(id);
@@ -72,7 +74,8 @@ export const PostView = ({ id }: { id: number }) => {
                 <S.PostEditIcon />
               </S.ButtonWrapper>
               <S.ButtonWrapper>
-                <S.PostDeleteIcon onClick={deletePostButton} />
+                {/* <S.PostDeleteIcon onClick={() => mutate(id)} /> */}
+                <PostDeleteButton id={id}/>
               </S.ButtonWrapper>
             </S.ButtonContentWrapper>
             <S.PostDate>

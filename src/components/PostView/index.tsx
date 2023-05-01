@@ -4,18 +4,25 @@ import Loading from '../Loading';
 import { useStore } from '../../store/store';
 import { getPost, deletePost } from '@/api/post';
 import { addLike, deleteLike } from '@/api/user';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { commentMutation } from '@/api/user';
 import { CommentForm } from '@/types/modal';
+import { useParams } from 'react-router-dom';
+import PostDeleteButton from './PostDeleteButton';
 
 export const PostView = ({ id }: { id: number }) => {
   const [post, setPost] = useState<any>(null);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [comments, setComments] = useState<any>('');
-  const { mutate } = useMutation(({ id, content }: CommentForm) => commentMutation({ id, content }), {
+
+  const { mutate } = useMutation(commentMutation, {
     onSuccess: () => {
       console.log('success');
+      alert('댓글이 등록되었습니다.');
     },
+    onSettled: () => {
+      setComments('');
+    }
   });
 
   const { closeModal } = useStore();
@@ -27,11 +34,11 @@ export const PostView = ({ id }: { id: number }) => {
     });
   }, []);
 
-  const deletePostButton = async () => {
-    await deletePost(id);
-    alert('삭제되었습니다.');
-    closeModal();
-  };
+  // const deletePostButton = async () => {
+  //   await deletePost(id);
+  //   alert('삭제되었습니다.');
+  //   closeModal();
+  // };
 
   const likeClick = async () => {
     post.likes.length > 0 ? await deleteLike(id) : await addLike(id);
@@ -43,11 +50,11 @@ export const PostView = ({ id }: { id: number }) => {
     setComments(inputValue);
   };
 
-  const addComments = () => {
-    mutate({ id, content: comments });
-    alert('댓글이 등록되었습니다.');
-    setComments('');
-  };
+  // const addComments = () => {
+  //   mutate({ id, content: comments });
+  //   alert('댓글이 등록되었습니다.');
+  //   setComments('');
+  // };
 
   const postComments = post?.comments.map((comment: any) => (
     <S.PostCommentsWrapper key={comment.id}>
@@ -72,7 +79,8 @@ export const PostView = ({ id }: { id: number }) => {
                 <S.PostEditIcon />
               </S.ButtonWrapper>
               <S.ButtonWrapper>
-                <S.PostDeleteIcon onClick={deletePostButton} />
+                {/* <S.PostDeleteIcon onClick={() => mutate(id)} /> */}
+                <PostDeleteButton id={id}/>
               </S.ButtonWrapper>
             </S.ButtonContentWrapper>
             <S.PostDate>
@@ -83,7 +91,7 @@ export const PostView = ({ id }: { id: number }) => {
             </S.PostDate>
             <S.InputWrapper>
               <S.CommentInput placeholder='댓글 달기' onChange={textChange} value={comments} />
-              <S.PostCommentButton onClick={addComments}>게시</S.PostCommentButton>
+              <S.PostCommentButton onClick={()=>mutate({ postId: id, content: comments })}>게시</S.PostCommentButton>
             </S.InputWrapper>
           </S.PostContentWrapper>
         </S.PostViewWrapper>

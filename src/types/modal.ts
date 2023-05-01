@@ -12,6 +12,6 @@ export interface PostForm {
 }
 
 export interface CommentForm {
-  id: number;
+  postId: number;
   content: FormDataEntryValue;
 }

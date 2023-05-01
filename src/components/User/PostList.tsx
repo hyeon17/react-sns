@@ -18,16 +18,11 @@ function PostList({ userPost }: { userPost: posts[] | undefined;}) {
         <span>게시물</span>
       </S.flexCenterDiv>
       <S.flexWrapDiv>
-        {userPost?.map((post) => (
-          <Post
-            key={post.id}
-            src={post.files}
-            like={post.likes}
-            onClick={() => {
-              openModal();
-              setPostId(post.id);
-            }}
-          />
+        {userPost?.map(post => (
+          <Post key={post.id} src={post.files} like={post.likes} comment={post.comments}onClick={() => {
+            openModal();
+            setPostId(post.id)
+          }} />
         ))}
         {getIsModalOpen() && postId ? <BasicModal contents={<PostView id={postId} />} /> : null}
       </S.flexWrapDiv>

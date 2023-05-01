@@ -9,6 +9,7 @@ export type posts = {
   id: number
   files: string
   likes: number
+  comments: number
   createdAt: string
   updatedAt: string
 }
